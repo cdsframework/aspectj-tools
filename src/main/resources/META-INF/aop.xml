@@ -1,0 +1,18 @@
+<aspectj>
+    <aspects>
+        <aspect name="org.cdsframework.aspect.aspects.Retry" />
+        <aspect name="org.cdsframework.aspect.aspects.PropertySetter"/>
+        
+        <concrete-aspect name="org.cdsframework.aspect.aspects.Tracer"
+                         extends="org.cdsframework.aspect.aspects.Trace">
+            <!-- Configure the expression as needed and tracing will be added at compile time -->
+            <pointcut name="traceCall"
+                      expression="execution(void org.cdsframework.aspect.tests.RetryAnnotatedClassTest.testDoSomething()) &amp;&amp; !cflow(within(org.cdsframework.aspect.aspects.Tracer))"/>
+        </concrete-aspect>    
+    </aspects>
+    <!--
+    <weaver options="-verbose -showWeaveInfo -XnoInline -Xlint:ignore -Xset:weaveJavaxPackages=false"/>
+    -->
+    <weaver options="-nowarn -Xlint:ignore"/>
+
+</aspectj>
